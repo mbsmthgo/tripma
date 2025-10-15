@@ -1,0 +1,120 @@
+@import "tailwindcss";
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+.plane-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.tooltip {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 15px;
+  width: 384px;
+  height: auto;
+  background-color: var(--tooltip-bg);
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 4px 6px -2px #0000000D;
+  box-shadow: 0 10px 15px -3px #0000001A;
+  margin-bottom: 20px;
+}
+
+.tooltip[data-variant="bold"][data-color="black-white"] {
+  --tooltip-bg: #262626;
+  --tooltip-title-color: #FFFFFF;
+  --tooltip-desc-color: #C7C7C7;
+}
+
+.tooltip[data-variant="bold"][data-color="blue"] {
+  --tooltip-bg: #1E40AF;
+  --tooltip-title-color: #FFFFFF;
+  --tooltip-desc-color: #E8EDFF;
+}
+
+.tooltip[data-variant="bold"][data-color="fuchsia"] {
+  --tooltip-bg: #A9229B;
+  --tooltip-title-color: #FFFFFF;
+  --tooltip-desc-color: #FFE9FD;
+}
+
+.tooltip[data-variant="bold"][data-color="green"] {
+  --tooltip-bg: #47AA5D;
+  --tooltip-title-color: #FFFFFF;
+  --tooltip-desc-color: #E3FFE9;
+}
+
+.tooltip[data-variant="light"][data-color="black-white"] {
+  --tooltip-bg: #FFFFFF;
+  --tooltip-title-color: #111827;
+  --tooltip-desc-color: #6B7280;
+}
+
+.tooltip[data-variant="light"][data-color="blue"] {
+  --tooltip-bg: #E0E7FF;
+  --tooltip-title-color: #1E40AF;
+  --tooltip-desc-color: #1C51B9;
+}
+
+.tooltip[data-variant="light"][data-color="fuchsia"] {
+  --tooltip-bg: #FFF3FC;
+  --tooltip-title-color: #A9229B;
+  --tooltip-desc-color: #C7369E;
+}
+
+.tooltip[data-variant="light"][data-color="green"] {
+  --tooltip-bg: #E7FFF3;
+  --tooltip-title-color: #137A2A;
+  --tooltip-desc-color: #3C8C4E;
+}
+
+.tooltip::before {
+  content: '';
+  border: 20px solid var(--tooltip-bg);
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  position: absolute;
+  top: 100%;
+  left: 70px;
+  z-index: 2;
+}
+
+.tool-icon {
+  color: var(--tooltip-desc-color);
+  font-size: 20px;
+}
+
+.tool-info {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tool-title {
+  font-weight: 500;
+  margin-top: 5px;
+  color: var(--tooltip-title-color);
+  margin-bottom: 10px;
+}
+
+.tool-text {
+  font-weight: 400;
+  margin-top: 0;
+  color: var(--tooltip-desc-color);
+}
+
+.tool-cross {
+  cursor: pointer;
+  color: var(--tooltip-desc-color);
+  font-size: 25px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+
