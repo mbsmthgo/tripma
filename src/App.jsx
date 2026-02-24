@@ -8,6 +8,8 @@ import Packages from "./pages/Packages.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import SelectSeats from "./pages/SelectSeats.jsx";
+import Payment from "./pages/Payment.jsx";
+import Confirmation from "./pages/Confirmation.jsx";
 
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
                     <Route index element={<Home/>}/>
                     <Route path="flights" element={<Flights/>}/>
                     <Route path="booking" element={<SelectSeats/>}/>
+                    <Route path="payment" element={<Payment/>}/>
+                    <Route path="confirmation" element={<Confirmation />}/>
                     <Route path="hotels" element={<Hotels/>}/>
                     <Route path="packages" element={<Packages/>}/>
                     <Route path="signin" element={<SignIn/>}/>

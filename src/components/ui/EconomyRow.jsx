@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "../../utils.js"
 
-export default function EconomyRow({row, rowNumber, selected, setSelected}) {
+export default function EconomyRow({row, rowNumber, selected, setSelected, passengerCount}) {
     const [hovered, setHovered] = useState("")
     let y
     let yA
@@ -91,31 +91,45 @@ export default function EconomyRow({row, rowNumber, selected, setSelected}) {
     ]
     return (
         <>
-            {seatsData.map(seat => (
-                <>
-                    {hovered === row[seat.index].id ? <title>{row[seat.index].price}</title> : null}
-                    <svg onClick={() => {
-                        if (!row[seat.index].occupied) setSelected(prev => [...prev, row[seat.index].id])
-                        if (selected.contains(row[seat.index].id)) setSelected([])
-                    }}
-                         onMouseEnter={() => {
-                             if (!selected.contains(row[seat.index].id)) setHovered(row[seat.index].id)
-                         }}
-                         onMouseLeave={() => setHovered("")}
-                         className="cursor-pointer"
-                    >
-                        <rect width={22} height={32} x={seat.x} y={y}
-                              fill={row[seat.index].occupied ? "#E9E8FC" : (hovered === row[seat.index].id && !selected.contains(row[seat.index].id)) ? "#1513A0" : selected.contains(row[seat.index].id) ? "#EB568C" : "#605DEC"}
-                              rx={4}/>
-                        {selected.contains(row[seat.index].id) ?
-                            <polyline stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-                                      fill="none"
-                                      points={`${seat.xA},${yA} ${seat.xB},${yB} ${seat.xC},${yC}`}/>
-                            : null}
-                    </svg>
-                    {seat.index === 2 ? <text x={xRowNum} y={yRowNum} fill="#7C8DB0">{rowNumber}</text> : null}
-                </>
-            ))}
+            {seatsData.map(seat => {
+                function handleSeatClick() {
+                    if (!row[seat.index].occupied && !(selected.contains(row[seat.index].id))) {
+                        if (selected.length < passengerCount) {
+                            setSelected(prev => [...prev, row[seat.index].id])
+                        } else {
+                            const newArray = [...selected]
+                            newArray.pop()
+                            setSelected([...newArray, row[seat.index].id])
+                        }
+                    } else if (selected.contains(row[seat.index].id)) {
+                        const index = selected.indexOf(row[seat.index].id)
+                        const newArray = [...selected]
+                        setSelected(newArray.toSpliced(index, 1))
+                    }
+                }
+                return (
+                    <>
+                        {hovered === row[seat.index].id ? <title>{row[seat.index].price}</title> : null}
+                        <svg onClick={() => handleSeatClick()}
+                             onMouseEnter={() => {
+                                 if (!selected.contains(row[seat.index].id)) setHovered(row[seat.index].id)
+                             }}
+                             onMouseLeave={() => setHovered("")}
+                             className="cursor-pointer"
+                        >
+                            <rect width={22} height={32} x={seat.x} y={y}
+                                  fill={row[seat.index].occupied ? "#E9E8FC" : (hovered === row[seat.index].id && !selected.contains(row[seat.index].id)) ? "#1513A0" : selected.contains(row[seat.index].id) ? "#EB568C" : "#605DEC"}
+                                  rx={4}/>
+                            {selected.contains(row[seat.index].id) ?
+                                <polyline stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                                          fill="none"
+                                          points={`${seat.xA},${yA} ${seat.xB},${yB} ${seat.xC},${yC}`}/>
+                                : null}
+                        </svg>
+                        {seat.index === 2 ? <text x={xRowNum} y={yRowNum} fill="#7C8DB0">{rowNumber}</text> : null}
+                    </>
+                )
+            })}
         </>
     )
 }

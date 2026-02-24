@@ -3,7 +3,7 @@ import classNames from "classnames";
 export default function Button({children="Button", variant="primary", size="lg", type, navigation, disabled}) {
     const defaultStyle = "rounded-sm py-4"
     const sizeStyles = {
-        "lg": "w-auto text-xl px-6",
+        "lg": "min-w-30 w-auto text-xl px-6",
         "md": "w-25 text-xl px-6",
         "sm": "w-20 text-lg px-5",
         "extra": "w-15 text-lg px-5"

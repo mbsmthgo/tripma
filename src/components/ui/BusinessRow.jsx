@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "../../utils.js"
 
 
-export default function BusinessRow({row, rowNumber, selected, setSelected}) {
+export default function BusinessRow({row, rowNumber, selected, setSelected, passengerCount}) {
 
     const [hovered, setHovered] = useState("")
     const y = 630 + (60 * (rowNumber - 1))
@@ -45,13 +45,26 @@ export default function BusinessRow({row, rowNumber, selected, setSelected}) {
 
     return (
         <>
-            {seatsData.map(seat => (
+            {seatsData.map(seat => {
+                function handleSeatClick() {
+                    if (!row[seat.index].occupied && !(selected.contains(row[seat.index].id))) {
+                        if (selected.length < passengerCount) {
+                            setSelected(prev => [...prev, row[seat.index].id])
+                        } else {
+                            const newArray = [...selected]
+                            newArray.pop()
+                            setSelected([...newArray, row[seat.index].id])
+                        }
+                    } else if (selected.contains(row[seat.index].id)) {
+                        const index = selected.indexOf(row[seat.index].id)
+                        const newArray = [...selected]
+                        setSelected(newArray.toSpliced(index, 1))
+                    }
+                }
+                return (
                 <>
                     {hovered === row[seat.index].id ? <title>{row[seat.index].price}</title> : null}
-                    <svg onClick={() => {
-                        if (!row[seat.index].occupied) setSelected(prev => [...prev, row[seat.index].id])
-                        if (selected.contains(row[seat.index].id)) setSelected([])
-                    }}
+                    <svg onClick={() => handleSeatClick()}
                          onMouseEnter={() => {
                              if (!selected.contains(row[seat.index].id)) setHovered(row[seat.index].id)
                          }}
@@ -70,7 +83,7 @@ export default function BusinessRow({row, rowNumber, selected, setSelected}) {
                     </svg>
                     {seat.index === 1 ? <text x={1209} y={yRowNum} fill="#7C8DB0">{rowNumber}</text> : null}
                 </>
-            ))}
+            )})}
         </>
     )
 }

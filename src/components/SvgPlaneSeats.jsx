@@ -1,7 +1,7 @@
 import React from "react";
 import Plane from "./ui/Plane.jsx";
 
-export default function SvgPlaneSeats({seatsArray, selected, setSelected}) {
+export default function SvgPlaneSeats({seatsArray, selected, setSelected, passengerCount}) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export default function SvgPlaneSeats({seatsArray, selected, setSelected}) {
                 d="M1104 618s0-2.5 24.41-130c5.88-30.722 53.17-30 84.59-30s78.71-.722 84.59 30C1322 615.5 1322 618 1322 618v1652l-14.41 60.25c-7.28 30.46-94.59 30.25-94.59 30.25s-87.31.21-94.59-30.25L1104 2270z"
             />
 
-            <Plane seatsArray={seatsArray} selected={selected} setSelected={setSelected} />
+            <Plane seatsArray={seatsArray} selected={selected} setSelected={setSelected} passengerCount={passengerCount} />
 
             <defs>
                 <linearGradient
